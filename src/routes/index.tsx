@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/")({
@@ -728,6 +728,7 @@ function Pricing() {
       ],
       cta: "Pro 시작",
       ink: true,
+      href: "/checkout",
     },
     {
       name: "Creator",
@@ -777,16 +778,29 @@ function Pricing() {
                   </li>
                 ))}
               </ul>
-              <a
-                href="#cta"
-                className={`mt-8 inline-flex items-center justify-center rounded-full px-5 py-2.5 text-[13px] font-medium transition ${
-                  t.ink
-                    ? "bg-accent text-accent-foreground hover:opacity-90"
-                    : "border border-foreground text-foreground hover:bg-foreground hover:text-background"
-                }`}
-              >
-                {t.cta} →
-              </a>
+              {(t as { href?: string }).href ? (
+                <Link
+                  to={(t as { href: string }).href}
+                  className={`mt-8 inline-flex items-center justify-center rounded-full px-5 py-2.5 text-[13px] font-medium transition ${
+                    t.ink
+                      ? "bg-accent text-accent-foreground hover:opacity-90"
+                      : "border border-foreground text-foreground hover:bg-foreground hover:text-background"
+                  }`}
+                >
+                  {t.cta} →
+                </Link>
+              ) : (
+                <a
+                  href="#cta"
+                  className={`mt-8 inline-flex items-center justify-center rounded-full px-5 py-2.5 text-[13px] font-medium transition ${
+                    t.ink
+                      ? "bg-accent text-accent-foreground hover:opacity-90"
+                      : "border border-foreground text-foreground hover:bg-foreground hover:text-background"
+                  }`}
+                >
+                  {t.cta} →
+                </a>
+              )}
             </div>
           ))}
         </div>
